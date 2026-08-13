@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rummy 500</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div id="lobby-screen" class="screen">
+  <div class="lobby-card">
+    <h1>Rummy 500</h1>
+    <label>Your name
+      <input id="name-input" type="text" maxlength="16" placeholder="e.g. Sam" />
+    </label>
+
+    <div id="create-panel">
+      <button id="create-btn" class="primary">Create a new game</button>
+    </div>
+
+    <div class="divider">or</div>
+
+    <div id="join-panel">
+      <label>Room code
+        <input id="room-input" type="text" maxlength="5" placeholder="ABCDE" style="text-transform:uppercase" />
+      </label>
+      <button id="join-btn">Join game</button>
+    </div>
+
+    <p id="lobby-error" class="error"></p>
+  </div>
+</div>
+
+<div id="waiting-screen" class="screen" hidden>
+  <div class="lobby-card">
+    <h1>Waiting for players</h1>
+    <p id="localhost-warning" class="error" hidden>
+      ⚠️ You're on <strong>localhost</strong> — this link only works on this computer. Open this game
+      through its public URL (e.g. an ngrok link) instead, then create the room again from there so the
+      share link actually reaches other players.
+    </p>
+    <p>Share this link so others can join:</p>
+    <div class="share-row">
+      <input id="share-link" type="text" readonly />
+      <button id="copy-link-btn">Copy</button>
+    </div>
+    <h3>Players</h3>
+    <ul id="waiting-players"></ul>
+    <button id="add-bot-btn" hidden>Add computer player</button>
+    <button id="start-btn" class="primary" hidden>Start game</button>
+    <p id="waiting-hint"></p>
+  </div>
+</div>
+
+<div id="game-screen" class="screen" hidden>
+  <header id="game-header">
+    <div id="room-badge"></div>
+    <div id="turn-indicator"></div>
+    <div id="scoreboard"></div>
+  </header>
+
+  <main id="table">
+    <section id="melds-area"></section>
+
+    <section id="pile-area">
+      <div class="pile-block">
+        <h4>Stock</h4>
+        <div id="stock-pile" class="card card-back" title="Draw a card"></div>
+        <div id="stock-count"></div>
+      </div>
+      <div class="pile-block">
+        <h4>Discard pile</h4>
+        <div id="discard-pile" class="discard-row"></div>
+      </div>
+    </section>
+  </main>
+
+  <section id="action-bar">
+    <button id="meld-btn" disabled>Meld selected</button>
+    <select id="layoff-target"></select>
+    <button id="layoff-btn" disabled>Lay off selected onto meld</button>
+    <button id="discard-btn" disabled>Discard selected</button>
+  </section>
+
+  <section id="hand-area">
+    <div id="hand-header">
+      <h4>Your hand</h4>
+      <div id="sort-controls">
+        <button id="sort-rank-btn">Sort by rank</button>
+        <button id="sort-suit-btn">Sort by suit</button>
+      </div>
+    </div>
+    <div id="hand" class="hand-row"></div>
+  </section>
+
+  <p id="game-message"></p>
+  <div id="log-panel"></div>
+</div>
+
+<div id="round-end-screen" class="screen" hidden>
+  <div class="lobby-card">
+    <h2 id="round-end-title"></h2>
+    <div id="round-end-scores"></div>
+    <button id="next-round-btn" class="primary" hidden>Start next round</button>
+    <p id="round-end-hint"></p>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+</body>
+</html>

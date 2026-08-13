@@ -1,0 +1,16 @@
+{
+  "name": "rummy-500",
+  "version": "1.0.0",
+  "description": "Play Rummy 500 with friends over a shared link.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
