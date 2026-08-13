@@ -8,5 +8,4 @@ services:
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 20
-    autoDeploy: true
+        value: "20"
