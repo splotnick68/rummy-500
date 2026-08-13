@@ -20,6 +20,26 @@ Whenever you draw from the stock, that card gets a pulsing blue glow in your han
 
 Each player's badge at the top shows a mini stack of cards with their current hand size on it, so you can see at a glance how close an opponent is to going out. It also shows an "On board" running total — the combined point value of everything that player currently has melded on the table this round, which gets folded into their score once the round ends.
 
+## Deploy it permanently (Render)
+
+Running it locally with a tunnel (ngrok, etc.) works fine for a casual game night, but the link only stays up while your computer and the tunnel process are running. To get a permanent link that works even when your machine is off, deploy to [Render](https://render.com):
+
+1. Push this `rummy-500` folder to its own GitHub repo (it's already a git repo with one commit — just add a remote and push):
+   ```bash
+   git remote add origin <your-github-repo-url>
+   git push -u origin master
+   ```
+2. In the Render dashboard, click **New > Blueprint**, and point it at that repo. Render will read [`render.yaml`](render.yaml) and configure everything automatically (Node web service, `npm install` build, `npm start` start command, free plan).
+   - No Blueprint support, or prefer clicking through manually? **New > Web Service** instead, pick the repo, and set:
+     - **Build command:** `npm install`
+     - **Start command:** `npm start`
+     - Leave everything else default — Render sets `PORT` automatically and [server.js](server.js) already reads it.
+3. Once deployed, Render gives you a permanent `https://<your-service-name>.onrender.com` URL — that's your new shareable link, no tunnel needed.
+
+**Trade-offs to know about:**
+- The free plan spins down after 15 minutes of inactivity; the first visitor after a gap waits ~30-50 seconds for it to wake back up. Paid plans stay warm.
+- Game state lives in memory only (no database) — any redeploy or restart clears all active rooms, same as restarting the app locally.
+
 ## Rules implemented
 
 - 2 players: single 52-card deck + 2 jokers, 13 cards dealt each.
