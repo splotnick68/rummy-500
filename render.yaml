@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: rummy-500
+    name: BriRummy500
     runtime: node
     plan: free
     region: oregon
